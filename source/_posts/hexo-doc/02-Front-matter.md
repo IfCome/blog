@@ -3,9 +3,9 @@ title: Front-matter
 date: 2021-03-26 14:33:14
 tags:
 - hexo
-- practise
 categories:
 - hexo 文档
+- 基本操作
 ---
 
 Front-matter 是文件最上方以 --- 分隔的区域，用于指定个别文件的变量，举例来说：
@@ -15,6 +15,9 @@ title: Hello World
 date: 2013/7/13 20:46:25
 ---
 ```
+
+<!--more-->
+
 以下是预先定义的参数，您可在模板中使用这些参数值并加以利用。
 
 参数|描述|默认值
