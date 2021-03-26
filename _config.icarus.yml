@@ -3,13 +3,13 @@ version: 4.0.0
 # Icarus theme variant, can be "default" or "cyberpunk"
 variant: default
 # Path or URL to the website's logo
-# logo: /img/logo.svg
+# logo: https://raw.githubusercontent.com/IfCome/blog/master/resource/img/logo.png
 logo: 
     text: 知识码头
 # Page metadata configurations
 head:
     # URL or path to the website's icon
-    favicon: /img/favicon.svg
+    favicon: https://raw.githubusercontent.com/IfCome/blog/master/resource/img/avatar.png
     # Web application manifests configuration
     # https://developer.mozilla.org/en-US/docs/Web/Manifest
     manifest:
@@ -219,15 +219,15 @@ widgets:
         position: left
         type: profile
         # Author name
-        author: 工人甲
+        author: 工丁甲
         # Author title
         author_title: 初级搬运工
         # Author's current location
         location: 知识星球 ● 知识海洋 ● 知识码头
         # URL or path to the avatar image
-        avatar: 
+        avatar: https://raw.githubusercontent.com/IfCome/blog/master/resource/img/avatar.png
         # Whether show the rounded avatar image
-        avatar_rounded: false
+        avatar_rounded: true
         # Email address for the Gravatar
         gravatar: 
         # URL or path for the follow button
