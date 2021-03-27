@@ -9,7 +9,7 @@ logo:
 # Page metadata configurations
 head:
     # URL or path to the website's icon
-    favicon: https://raw.githubusercontent.com/IfCome/blog/master/resource/img/favicon.png
+    favicon: /images/favicon.png
     # Web application manifests configuration
     # https://developer.mozilla.org/en-US/docs/Web/Manifest
     manifest:
@@ -225,7 +225,7 @@ widgets:
         # Author's current location
         location: 知识星球 ● 知识海洋 ● 知识码头
         # URL or path to the avatar image
-        avatar: https://raw.githubusercontent.com/IfCome/blog/master/resource/img/avatar.png
+        avatar: /images/avatar.png
         # Whether show the rounded avatar image
         avatar_rounded: true
         # Email address for the Gravatar

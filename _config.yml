@@ -63,5 +63,5 @@ ignore: null
 theme: icarus
 deploy:
   type: git
-  repo: https://github.com/IfCome/blog.git
+  repo: https://gitee.com/notop/blog.git
   branch: gh-pages
