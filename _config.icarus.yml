@@ -111,6 +111,9 @@ navbar:
         To My GitHub:
             icon: fab fa-github
             url: 'https://github.com/IfCome/blog'
+        To My Gitee:
+            icon: fab fa-gitee
+            url: 'https://gitee.com/notop/blog'
 # Page footer configurations
 footer:
     # Links to be shown on the right of the footer section
