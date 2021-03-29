@@ -111,9 +111,6 @@ navbar:
         To My GitHub:
             icon: fab fa-github
             url: 'https://github.com/IfCome/blog'
-        To My Gitee:
-            icon: fab fa-gitee
-            url: 'https://gitee.com/notop/blog'
 # Page footer configurations
 footer:
     # Links to be shown on the right of the footer section
@@ -270,8 +267,9 @@ widgets:
         type: links
         # Names and URLs of the sites
         links:
+            gitee: 'https://gitee.com/notop/blog'
             Hexo: 'https://hexo.io'
-            Bulma: 'https://bulma.io'
+            hexo-theme-icarus: 'https://blog.zhangruipeng.me/hexo-theme-icarus'
     # Categories widget configurations
     -
         # Where should the widget be placed, left sidebar or right sidebar
