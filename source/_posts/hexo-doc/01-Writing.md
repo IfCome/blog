@@ -74,3 +74,24 @@ Hexo 支持以任何格式书写文章，只要安装了相应的渲染插件。
 例如，Hexo 默认安装了 `hexo-renderer-marked` 和 `hexo-renderer-ejs`，因此你不仅可以用 Markdown 写作，你还可以用 EJS 写作。如果你安装了 `hexo-renderer-pug`，你甚至可以用 Pug 模板语言书写文章。
 
 只需要将文章的扩展名从 `md` 改成 `ejs`，Hexo 就会使用 `hexo-renderer-ejs` 渲染这个文件，其他格式同理。
+
+## 自定义新文章的路径
+默认情况下，Hexo 会使用文章的标题来决定文章文件的路径。
+对于独立页面来说，Hexo 会创建一个以标题为名字的目录，并在目录中放置一个 index.md 文件。你可以使用 --path(-p) 参数来覆盖上述行为、自行决定文件的目录：
+```
+hexo new page -p about/me "About me"
+```
+以上命令会创建一个 source/about/me.md 文件，同时 Front Matter 中的 title 为 "About me"。
+注意！title 是必须指定的！如果你这么做并不能达到你的目的：
+```
+hexo new page --path about/me
+```
+此时 Hexo 会创建 source/_posts/about/me.md，同时 me.md 的 Front Matter 中的 title 为 "page"。这是因为在上述命令中，hexo-cli 将 page 视为指定文章的标题、并采用默认的 layout。
+
+而对于文章来说，下面两条命令都会创建一个 _posts/hello/hello-world.md 文件：
+```
+hexo new post -p hello/hello-world "Hello world"
+hexo new post -p hello/hello-world
+```
+不同的是，第一条命令生成的文件中，title 为 "Hello world"，第二条命令生成的文件则为 "post"。
+
