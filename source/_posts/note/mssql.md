@@ -15,9 +15,9 @@ ROW_NUMBER() OVER(PARTITION BY COL1 ORDER BY COL2)
 比如，把每个班的学生按年龄从小到大的排序：
 <!--more-->
 
-```[sql]
+```
 SELECT
-	[CLASS]
+    [CLASS]
    ,[NAME]
    ,[AGE]
    ,ROW_NUMBER() OVER (PARTITION BY [CLASS] ORDER BY [AGE] ASC)
