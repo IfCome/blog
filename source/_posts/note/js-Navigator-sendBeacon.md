@@ -1,5 +1,5 @@
 ---
-title: 关闭页面提交数据-Navigator.sendBeacon 无阻塞发送统计数据
+title: Navigator.sendBeacon-关闭页面提交数据
 date: 2021-04-10 22:15:48
 tags:
 - JavaScript
