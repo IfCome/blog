@@ -33,8 +33,8 @@ More info: [Generating](https://hexo.io/docs/generating.html)
 
 ### Deploy to remote sites
 
-``` bash
+{% codeblock %}
 $ hexo deploy
-```
+{% endcodeblock %}
 
 More info: [Deployment](https://hexo.io/docs/one-command-deployment.html)

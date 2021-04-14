@@ -7,18 +7,14 @@ categories:
 - Docker
 ---
 
-## 使用Dockerfile部署
+## 1. 使用Dockerfile部署
+首先来看下目录结构及配置文件：
 
-### 文件夹目录：
+{% asset_img folder.png 文件夹目录 %}
 
 <!--more-->
-|——demoWeb<br>
-|&nbsp;&nbsp;&nbsp;&nbsp;|——index.html<br/>
-|——mydefault.conf<br/>
-|——Dockerfile
 
-### mydefault.conf
-```
+``` config mydefault.conf
 server {
     #这里就是把默认config的80端口改为8080端口
     listen       8080;
@@ -44,8 +40,7 @@ server {
 }
 ```
 
-### Dockerfile:
-```
+``` config Dockerfile
 FROM nginx:alpine
 COPY demoWeb /usr/share/nginx/html
 COPY mydefault.conf /etc/nginx/conf.d/default.conf
