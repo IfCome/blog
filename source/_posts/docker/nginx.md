@@ -11,12 +11,12 @@ categories:
 
 ### 文件夹目录：
 
+<!--more-->
 |——demoWeb<br>
 |&nbsp;&nbsp;&nbsp;&nbsp;|——index.html<br/>
 |——mydefault.conf<br/>
 |——Dockerfile
 
-<!--more-->
 ### mydefault.conf
 ```
 server {
