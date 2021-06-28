@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+  
+    
+    <entry>
+      <title>Hello World</title>
+      <link href="/blog/2021/04/16/hello-world/"/>
+      <url>/blog/2021/04/16/hello-world/</url>
+      
+        <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><a id="more"></a><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Docker部署简单Nginx</title>
+      <link href="/blog/2021/04/14/docker/nginx/"/>
+      <url>/blog/2021/04/14/docker/nginx/</url>
+      
+        <content type="html"><![CDATA[<h2 id="1-使用Dockerfile部署"><a href="#1-使用Dockerfile部署" class="headerlink" title="1. 使用Dockerfile部署"></a>1. 使用Dockerfile部署</h2><p>首先来看下目录结构及配置文件：</p><img src="/blog/2021/04/14/docker/nginx/folder.png" class="" title="文件夹目录"><a id="more"></a><figure class="highlight plain"><figcaption><span>mydefault.conf</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    #这里就是把默认config的80端口改为8080端口</span><br><span class="line">    listen       8080;</span><br><span class="line">    listen  [::]:8080;</span><br><span class="line">    server_name  localhost;</span><br><span class="line"></span><br><span class="line">    #charset koi8-r;</span><br><span class="line">    #access_log  &#x2F;var&#x2F;log&#x2F;nginx&#x2F;host.access.log  main;</span><br><span class="line"></span><br><span class="line">    location &#x2F; &#123;</span><br><span class="line">        root   &#x2F;usr&#x2F;share&#x2F;nginx&#x2F;html;</span><br><span class="line">        index  index.html index.htm;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    #error_page  404              &#x2F;404.html;</span><br><span class="line"></span><br><span class="line">    # redirect server error pages to the static page &#x2F;50x.html</span><br><span class="line">    #</span><br><span class="line">    error_page   500 502 503 504  &#x2F;50x.html;</span><br><span class="line">    location &#x3D; &#x2F;50x.html &#123;</span><br><span class="line">        root   &#x2F;usr&#x2F;share&#x2F;nginx&#x2F;html;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><figure class="highlight plain"><figcaption><span>Dockerfile</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">FROM nginx:alpine</span><br><span class="line">COPY demoWeb &#x2F;usr&#x2F;share&#x2F;nginx&#x2F;html</span><br><span class="line">COPY mydefault.conf &#x2F;etc&#x2F;nginx&#x2F;conf.d&#x2F;default.conf</span><br><span class="line">EXPOSE 80</span><br><span class="line"></span><br><span class="line">CMD [&quot;nginx&quot;, &quot;-g&quot;, &quot;daemon off;&quot;]</span><br></pre></td></tr></table></figure><h3 id="执行docker-build进行构建"><a href="#执行docker-build进行构建" class="headerlink" title="执行docker build进行构建"></a>执行docker build进行构建</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker build -t my_nginx:v1 .</span><br></pre></td></tr></table></figure><h3 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p80:8080 my_nginx:v1</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> Docker </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> docker nginx </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>备份和还原MongoDB</title>
+      <link href="/blog/2021/04/12/note/dump-restore-mongodb/"/>
+      <url>/blog/2021/04/12/note/dump-restore-mongodb/</url>
+      
+        <content type="html"><![CDATA[<p>记录MongoDB备份和还原的简单使用</p><h2 id="备份"><a href="#备份" class="headerlink" title="备份"></a>备份</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mongodump -h dbhost -d dbname -o dbdirectory</span><br></pre></td></tr></table></figure><a id="more"></a><table><thead><tr><th>参数</th><th>说明</th></tr></thead><tbody><tr><td>-h</td><td>MongoDB 所在服务器地址，例如：127.0.0.1，也可以指定端口号：127.0.0.1:27017</td></tr><tr><td>-d</td><td>需要备份的数据库实例，例如：testDB</td></tr><tr><td>-o</td><td>备份的数据存放位置，例如：c:\data\dump，当然该目录需要提前建立，在备份完成后，系统自动在dump目录下建立一个testDB目录，这个目录里面存放该数据库实例的备份数据</td></tr></tbody></table><p>例如：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mongodump -h 127.0.0.1 -d demoDB -o C:\data\dump\demoDB</span><br></pre></td></tr></table></figure><h2 id="还原"><a href="#还原" class="headerlink" title="还原"></a>还原</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mongorestore -h dbhost -d dbname &lt;path&gt;</span><br></pre></td></tr></table></figure><table><thead><tr><th>参数</th><th>说明</th></tr></thead><tbody><tr><td>-h</td><td>MongoDB 所在服务器地址，例如：127.0.0.1，也可以指定端口号：127.0.0.1:27017。默认为： localhost:27017</td></tr><tr><td>-d</td><td>需要备份的数据库实例，例如：testDB</td></tr><tr><td><code>&lt;path&gt;</code></td><td>备份的数据存放位置，例如：c:\data\dump\demoDB</td></tr></tbody></table><p>例如，恢复<code>demoDB</code>到<code>localhost:27017</code>：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mongorestore -d demoDB C:\data\dump\demoDB</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 零散笔记 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> MongoDB </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Navigator.sendBeacon-关闭页面提交数据</title>
+      <link href="/blog/2021/04/10/note/js-Navigator-sendBeacon/"/>
+      <url>/blog/2021/04/10/note/js-Navigator-sendBeacon/</url>
+      
+        <content type="html"><![CDATA[<p>navigator.sendBeacon() 方法可用于通过HTTP将少量数据异步传输到Web服务器</p><blockquote><p>适用于当用户关闭页面、刷新页面或者跳转到其他页面时，需要向服务器发送一些记录数据，并且不关心服务器返回值的场景</p></blockquote><a id="more"></a><h2 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h2><p>使用<code>sendBeacon()</code>方法会使用户代理在有机会时异步地向服务器发送数据，同时不会延迟页面的卸载或影响下一导航的载入性能。这就解决了提交分析数据时的所有的问题：数据可靠，传输异步并且不会影响下一页面的加载。</p><h2 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">navigator.sendBeacon(url, data);</span><br></pre></td></tr></table></figure><table><thead><tr><th>参数</th><th>说明</th></tr></thead><tbody><tr><td>url</td><td>表明 data 将要被发送到的网络地址</td></tr><tr><td>data</td><td>将要发送的<code>ArrayBufferView</code>、<code>Blob</code>、<code>DOMString</code>或<code>FormData</code>类型的数据</td></tr></tbody></table><h2 id="参考代码"><a href="#参考代码" class="headerlink" title="参考代码"></a>参考代码</h2><p>一般常用 DOMString , Blob 和 Formdata 这三种对象作为数据发送到后端，下面以这三种方式为例进行说明：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 1. DOMString类型，该请求会自动设置请求头的 Content-Type 为 text&#x2F;plain</span><br><span class="line">const reportData &#x3D; (url, data) &#x3D;&gt; &#123;</span><br><span class="line">  navigator.sendBeacon(url, data);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 2. 如果用 Blob 发送数据，这时需要我们手动设置 Blob 的 MIME type，</span><br><span class="line">&#x2F;&#x2F; 一般设置为 application&#x2F;x-www-form-urlencoded。</span><br><span class="line">const reportData &#x3D; (url, data) &#x3D;&gt; &#123;</span><br><span class="line">  const blob &#x3D; new Blob([JSON.stringify(data), &#123;</span><br><span class="line">    type: &#39;application&#x2F;x-www-form-urlencoded&#39;,</span><br><span class="line">  &#125;]);</span><br><span class="line">  navigator.sendBeacon(url, blob);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 3. 发送的是Formdata类型，</span><br><span class="line">&#x2F;&#x2F; 此时该请求会自动设置请求头的 Content-Type 为 multipart&#x2F;form-data。</span><br><span class="line">var data &#x3D; &#123;</span><br><span class="line">   name: &#39;前端名狮子&#39;  ,</span><br><span class="line">   age: 20</span><br><span class="line">&#125;;</span><br><span class="line">const reportData &#x3D; (url, data) &#x3D;&gt; &#123;</span><br><span class="line">  const formData &#x3D; new FormData();</span><br><span class="line">  Object.keys(data).forEach((key) &#x3D;&gt; &#123;</span><br><span class="line">    let value &#x3D; data[key];</span><br><span class="line">    if (typeof value !&#x3D;&#x3D; &#39;string&#39;) &#123;</span><br><span class="line">      &#x2F;&#x2F; formData只能append string 或 Blob</span><br><span class="line">      value &#x3D; JSON.stringify(value);</span><br><span class="line">    &#125;</span><br><span class="line">    formData.append(key, value);</span><br><span class="line">  &#125;);</span><br><span class="line">  navigator.sendBeacon(url, formData);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 零散笔记 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> JavaScript </tag>
+            
+            <tag> Web </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>配置MongoDB + 安装为Windows服务</title>
+      <link href="/blog/2021/04/02/note/install-mongodb/"/>
+      <url>/blog/2021/04/02/note/install-mongodb/</url>
+      
+        <content type="html"><![CDATA[<p>为了方便在同一台服务器上配置多个版本的MongoDB服务，我选择了去<a href="https://www.mongodb.com/download-center/community/releases/archive">Mongodb官网</a>下载zip文件，手动配置服务，以下以实例说明。文件解压至路径<code>“D:\Program Files\mongodb\Server\4.0.6\”</code> 。</p><a id="more"></a><h2 id="创建配置文件"><a href="#创建配置文件" class="headerlink" title="创建配置文件"></a>创建配置文件</h2><p>新建文件<code>D:\Program Files\mongodb\Server\4.0.6\bin\mongod.cfg</code> :</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"># Where and how to store data.</span><br><span class="line">storage:</span><br><span class="line">  dbPath: D:\Program Files\mongodb\Data\4.0.6</span><br><span class="line">  journal:</span><br><span class="line">    enabled: true</span><br><span class="line">#  engine:</span><br><span class="line">#  mmapv1:</span><br><span class="line">#  wiredTiger:</span><br><span class="line"></span><br><span class="line"># where to write logging data.</span><br><span class="line">systemLog:</span><br><span class="line">  destination: file</span><br><span class="line">  logAppend: true</span><br><span class="line">  path:  D:\Program Files\mongodb\Log\4.0.6\mongod.log</span><br><span class="line"></span><br><span class="line"># network interfaces</span><br><span class="line">net:</span><br><span class="line">  port: 27017</span><br><span class="line"># bindIp: 127.0.0.1</span><br><span class="line">  bindIp: 0.0.0.0</span><br></pre></td></tr></table></figure><h2 id="注册服务"><a href="#注册服务" class="headerlink" title="注册服务"></a>注册服务</h2><p>使用CMD执行命令：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;D:\Program Files\mongodb\Server\4.0.6\bin\mongod.exe&quot; --config &quot;D:\Program Files\mongodb\Server\4.0.6\bin\mongod.cfg&quot; --install --serviceName &quot;MongoDB406&quot;</span><br></pre></td></tr></table></figure><blockquote><p>注意：避免使用Powershell，可能会报错</p></blockquote><h2 id="启动与关闭MongoDB服务"><a href="#启动与关闭MongoDB服务" class="headerlink" title="启动与关闭MongoDB服务"></a>启动与关闭MongoDB服务</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">net start MongoDB406</span><br><span class="line">net stop MongoDB406</span><br></pre></td></tr></table></figure><h2 id="移除MongoDB服务"><a href="#移除MongoDB服务" class="headerlink" title="移除MongoDB服务"></a>移除MongoDB服务</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;D:\Program Files\mongodb\Log\4.0.6\bin\mongod.exe&quot; --remove --serviceName &quot;MongoDB406&quot;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 零散笔记 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> MongoDB </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>SQL Server 笔记</title>
+      <link href="/blog/2021/03/31/note/mssql/"/>
+      <url>/blog/2021/03/31/note/mssql/</url>
+      
+        <content type="html"><![CDATA[<h2 id="分组排序"><a href="#分组排序" class="headerlink" title="分组排序"></a>分组排序</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ROW_NUMBER() OVER(PARTITION BY COL1 ORDER BY COL2)</span><br></pre></td></tr></table></figure><p>比如，把每个班的学生按年龄从小到大的排序：</p><a id="more"></a><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">SELECT</span><br><span class="line">    [CLASS]</span><br><span class="line">   ,[NAME]</span><br><span class="line">   ,[AGE]</span><br><span class="line">   ,ROW_NUMBER() OVER (PARTITION BY [CLASS] ORDER BY [AGE] ASC)</span><br><span class="line">FROM TEST_T</span><br></pre></td></tr></table></figure><h2 id="Merge"><a href="#Merge" class="headerlink" title="Merge"></a>Merge</h2><p>简单使用：如果学生信息存在，则更新学生年龄。如果不存在，则插入学生信息。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">MERGE INTO D_StudentT AS target</span><br><span class="line">USING Temp_StudentT AS source</span><br><span class="line">    ON target.CLASS &#x3D; source.CLASS </span><br><span class="line">    AND target.NAME&#x3D;source.NAME</span><br><span class="line">WHEN MATCHED THEN</span><br><span class="line">    UPDATE SET target.AGE&#x3D;source.AGE,</span><br><span class="line">               target.UpdatedTime&#x3D;GETDATE()</span><br><span class="line">WHEN NOT MATCHED THEN</span><br><span class="line">    INSERT(CLASS,NAME,AGE) </span><br><span class="line">    VALUES(source.CLASS,source.NAME,source.AGE);</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 零散笔记 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> sql </tag>
+            
+            <tag> mssql </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Git 同时 push 到多个远程仓库</title>
+      <link href="/blog/2021/03/29/note/git-multi-remote/"/>
+      <url>/blog/2021/03/29/note/git-multi-remote/</url>
+      
+        <content type="html"><![CDATA[<p>使用以下命令添加第二个远程地址：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote set-url --add origin https:&#x2F;&#x2F;gitee.com&#x2F;notop&#x2F;blog.git</span><br></pre></td></tr></table></figure><a id="more"></a><p>查看远程分支：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ git remote -v</span><br><span class="line">origin  https:&#x2F;&#x2F;github.com&#x2F;IfCome&#x2F;blog.git (fetch)</span><br><span class="line">origin  https:&#x2F;&#x2F;github.com&#x2F;IfCome&#x2F;blog.git (push)</span><br><span class="line">origin  https:&#x2F;&#x2F;gitee.com&#x2F;notop&#x2F;blog.git (push)</span><br></pre></td></tr></table></figure><p>这样就能同时 push 到多个远程地址</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git push origin master</span><br><span class="line">Everything up-to-date</span><br><span class="line">Everything up-to-date</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 零散笔记 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> git </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>写作</title>
+      <link href="/blog/2021/03/26/hexo-doc/01-Writing/"/>
+      <url>/blog/2021/03/26/hexo-doc/01-Writing/</url>
+      
+        <content type="html"><![CDATA[<p>你可以执行下列命令来创建一篇新文章或者新的页面。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new [layout] &lt;title&gt;</span><br></pre></td></tr></table></figure><p>您可以在命令中指定文章的布局（layout），默认为 <code>post</code>，可以通过修改 <code>_config.yml</code> 中的 <code>default_layout</code> 参数来指定默认布局。</p><a id="more"></a><h2 id="布局（Layout）"><a href="#布局（Layout）" class="headerlink" title="布局（Layout）"></a>布局（Layout）</h2><p>Hexo 有三种默认布局：<code>post</code>、<code>page</code> 和 <code>draft</code>。在创建这三种不同类型的文件时，它们将会被保存到不同的路径；而您自定义的其他布局和 <code>post</code> 相同，都将储存到 <code>source/_posts</code> 文件夹。</p><table><thead><tr><th>布局</th><th>路径</th></tr></thead><tbody><tr><td><code>post</code></td><td><code>source/_posts</code></td></tr><tr><td><code>page</code></td><td><code>source</code></td></tr><tr><td><code>draft</code></td><td><code>source/_drafts</code></td></tr></tbody></table><blockquote><h2 id="Disabling-layout"><a href="#Disabling-layout" class="headerlink" title="Disabling layout"></a>Disabling layout</h2><p>If you don’t want an article (post/page) to be processed with a theme, set <code>layout: false</code> in its front-matter. Refer to <a href="https://hexo.io/zh-cn/docs/front-matter#%E5%B8%83%E5%B1%80">this section</a> for more details.</p></blockquote><h2 id="文件名称"><a href="#文件名称" class="headerlink" title="文件名称"></a>文件名称</h2><p>Hexo 默认以标题做为文件名称，但您可编辑 <code>new_post_name</code> 参数来改变默认的文件名称，举例来说，设为 <code>:year-:month-:day-:title.md</code> 可让您更方便的通过日期来管理文章。</p><table><thead><tr><th>变量</th><th>描述</th></tr></thead><tbody><tr><td><code>:title</code></td><td>标题（小写，空格将会被替换为短杠）</td></tr><tr><td><code>:year</code></td><td>建立的年份，比如， <code>2015</code></td></tr><tr><td><code>:month</code></td><td>建立的月份（有前导零），比如， <code>04</code></td></tr><tr><td><code>:i_month</code></td><td>建立的月份（无前导零），比如， <code>4</code></td></tr><tr><td><code>:day</code></td><td>建立的日期（有前导零），比如， <code>07</code></td></tr><tr><td><code>:i_day</code></td><td>建立的日期（无前导零），比如， <code>7</code></td></tr></tbody></table><h2 id="草稿"><a href="#草稿" class="headerlink" title="草稿"></a>草稿</h2><p>刚刚提到了 Hexo 的一种特殊布局：<code>draft</code>，这种布局在建立时会被保存到 <code>source/_drafts</code> 文件夹，您可通过 <code>publish</code> 命令将草稿移动到 <code>source/_posts</code> 文件夹，该命令的使用方式与 <code>new</code> 十分类似，您也可在命令中指定 <code>layout</code> 来指定布局。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo publish [layout] &lt;title&gt;</span><br></pre></td></tr></table></figure><p>草稿默认不会显示在页面中，您可在执行时加上 <code>--draft</code> 参数，或是把 <code>render_drafts</code> 参数设为 <code>true</code> 来预览草稿。</p><h2 id="模版（Scaffold）"><a href="#模版（Scaffold）" class="headerlink" title="模版（Scaffold）"></a>模版（Scaffold）</h2><p>在新建文章时，Hexo 会根据 scaffolds 文件夹内相对应的文件来建立文件，例如：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new photo &quot;My Gallery&quot;</span><br></pre></td></tr></table></figure><p>在执行这行指令时，Hexo 会尝试在 <code>scaffolds</code> 文件夹中寻找 <code>photo.md</code>，并根据其内容建立文章，以下是您可以在模版中使用的变量：</p><table><thead><tr><th>变量</th><th>描述</th></tr></thead><tbody><tr><td><code>layout</code></td><td>布局</td></tr><tr><td><code>title</code></td><td>标题</td></tr><tr><td><code>date</code></td><td>文件建立日期</td></tr></tbody></table><h2 id="支持的格式"><a href="#支持的格式" class="headerlink" title="支持的格式"></a>支持的格式</h2><p>Hexo 支持以任何格式书写文章，只要安装了相应的渲染插件。</p><p>例如，Hexo 默认安装了 <code>hexo-renderer-marked</code> 和 <code>hexo-renderer-ejs</code>，因此你不仅可以用 Markdown 写作，你还可以用 EJS 写作。如果你安装了 <code>hexo-renderer-pug</code>，你甚至可以用 Pug 模板语言书写文章。</p><p>只需要将文章的扩展名从 <code>md</code> 改成 <code>ejs</code>，Hexo 就会使用 <code>hexo-renderer-ejs</code> 渲染这个文件，其他格式同理。</p><h2 id="自定义新文章的路径"><a href="#自定义新文章的路径" class="headerlink" title="自定义新文章的路径"></a>自定义新文章的路径</h2><p>默认情况下，Hexo 会使用文章的标题来决定文章文件的路径。<br>对于独立页面来说，Hexo 会创建一个以标题为名字的目录，并在目录中放置一个 index.md 文件。你可以使用 –path(-p) 参数来覆盖上述行为、自行决定文件的目录：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new page -p about&#x2F;me &quot;About me&quot;</span><br></pre></td></tr></table></figure><p>以上命令会创建一个 source/about/me.md 文件，同时 Front Matter 中的 title 为 “About me”。<br>注意！title 是必须指定的！如果你这么做并不能达到你的目的：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new page --path about&#x2F;me</span><br></pre></td></tr></table></figure><p>此时 Hexo 会创建 source/_posts/about/me.md，同时 me.md 的 Front Matter 中的 title 为 “page”。这是因为在上述命令中，hexo-cli 将 page 视为指定文章的标题、并采用默认的 layout。</p><p>而对于文章来说，下面两条命令都会创建一个 _posts/hello/hello-world.md 文件：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo new post -p hello&#x2F;hello-world &quot;Hello world&quot;</span><br><span class="line">hexo new post -p hello&#x2F;hello-world</span><br></pre></td></tr></table></figure><p>不同的是，第一条命令生成的文件中，title 为 “Hello world”，第二条命令生成的文件则为 “post”。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> hexo 文档 </category>
+          
+          <category> 基本操作 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> hexo </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Front-matter</title>
+      <link href="/blog/2021/03/26/hexo-doc/02-Front-matter/"/>
+      <url>/blog/2021/03/26/hexo-doc/02-Front-matter/</url>
+      
+        <content type="html"><![CDATA[<p>Front-matter 是文件最上方以 — 分隔的区域，用于指定个别文件的变量，举例来说：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: Hello World</span><br><span class="line">date: 2013&#x2F;7&#x2F;13 20:46:25</span><br><span class="line">---</span><br></pre></td></tr></table></figure><a id="more"></a><p>以下是预先定义的参数，您可在模板中使用这些参数值并加以利用。</p><table><thead><tr><th>参数</th><th>描述</th><th>默认值</th></tr></thead><tbody><tr><td>layout</td><td>布局</td><td><a href="https://hexo.io/zh-cn/docs/configuration#%E6%96%87%E7%AB%A0">config.default_layout</a></td></tr><tr><td>title</td><td>标题</td><td>文章的文件名</td></tr><tr><td>date</td><td>建立日期</td><td>文件建立日期</td></tr><tr><td>updated</td><td>更新日期</td><td>文件更新日期</td></tr><tr><td>comments</td><td>开启文章的评论功能</td><td>true</td></tr><tr><td>tags</td><td>标签（不适用于分页）</td><td></td></tr><tr><td>categories</td><td>分类（不适用于分页）</td><td></td></tr><tr><td>permalink</td><td>覆盖文章网址</td><td></td></tr><tr><td>excerpt</td><td>Page excerpt in plain text. Use <a href="https://hexo.io/docs/tag-plugins#Post-Excerpt">this plugin</a> to format the text</td><td></td></tr><tr><td>disableNunjucks</td><td>Disable rendering of Nunjucks tag <code>&#123;&#123; &#125;&#125;/&#123;% %&#125;</code> and tag plugins when enabled</td><td></td></tr><tr><td>lang</td><td>Set the language to override <a href="https://hexo.io/docs/internationalization#Path">auto-detection</a></td><td>Inherited from _config.yml</td></tr></tbody></table><h2 id="布局"><a href="#布局" class="headerlink" title="布局"></a>布局</h2><p>The default layout is <code>post</code>, in accordance to the value of default_layout setting in <code>_config.yml</code>. When the layout is disabled (<code>layout: false</code>) in an article, it will not be processed with a theme. However, it will still be rendered by any available renderer: if an article is written in Markdown and a Markdown renderer (like the default hexo-renderer-marked) is installed, it will be rendered to HTML.</p><p>Tag plugins are always processed regardless of layout, unless disabled by the <code>disableNunjucks</code> setting or renderer.</p><h2 id="分类和标签"><a href="#分类和标签" class="headerlink" title="分类和标签"></a>分类和标签</h2><p>只有文章支持分类和标签，您可以在 Front-matter 中设置。在其他系统中，分类和标签听起来很接近，但是在 Hexo 中两者有着明显的差别：分类具有顺序性和层次性，也就是说 Foo, Bar 不等于 Bar, Foo；而标签没有顺序和层次。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">categories:</span><br><span class="line">- Diary</span><br><span class="line">tags:</span><br><span class="line">- PS3</span><br><span class="line">- Games</span><br></pre></td></tr></table></figure><blockquote><h2 id="分类方法的分歧"><a href="#分类方法的分歧" class="headerlink" title="分类方法的分歧"></a>分类方法的分歧</h2><p>如果您有过使用 WordPress 的经验，就很容易误解 Hexo 的分类方式。WordPress 支持对一篇文章设置多个分类，而且这些分类可以是同级的，也可以是父子分类。但是 Hexo 不支持指定多个同级分类。下面的指定方法：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">categories:</span><br><span class="line"> - Diary</span><br><span class="line"> - Life</span><br></pre></td></tr></table></figure><p>会使分类 <code>Life</code> 成为<code>Diary</code>的子分类，而不是并列分类。因此，有必要为您的文章选择尽可能准确的分类。</p><p>如果你需要为文章添加多个分类，可以尝试以下 list 中的方法。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">categories:</span><br><span class="line">- [Diary, PlayStation]</span><br><span class="line">- [Diary, Games]</span><br><span class="line">- [Life]</span><br></pre></td></tr></table></figure><p>此时这篇文章同时包括三个分类： PlayStation 和 Games 分别都是父分类 Diary 的子分类，同时 Life 是一个没有子分类的分类。</p></blockquote><h2 id="JSON-Front-matter"><a href="#JSON-Front-matter" class="headerlink" title="JSON Front-matter"></a>JSON Front-matter</h2><p>除了 YAML 外，你也可以使用 JSON 来编写 Front-matter，只要将 <code>---</code> 代换成 <code>;;;</code> 即可。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&quot;title&quot;: &quot;Hello World&quot;,</span><br><span class="line">&quot;date&quot;: &quot;2013&#x2F;7&#x2F;13 20:46:25&quot;</span><br><span class="line">;;;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> hexo 文档 </category>
+          
+          <category> 基本操作 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> hexo </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+  
+  
+</search>
